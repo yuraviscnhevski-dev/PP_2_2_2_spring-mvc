@@ -1,25 +1,16 @@
 package web.model;
 
-import javax.persistence.*;
+import java.util.Objects;
 
-@Entity
-@Table(name = "car")
 public class Car {
 
-    @Id()
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name = "model")
     private String model;
-
-    @Column(name = "series")
     private String series;
-
-    @Column(name = "horsePower")
     private int horsePower;
 
+
     public Car() {}
+
 
     public Car(String model, String series, int horsePower) {
         this.model = model;
@@ -27,13 +18,6 @@ public class Car {
         this.horsePower = horsePower;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getModel() {
         return model;
@@ -59,11 +43,27 @@ public class Car {
         this.horsePower = horsePower;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return horsePower == car.horsePower &&
+                Objects.equals(model, car.model) &&
+                Objects.equals(series, car.series);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(model, series, horsePower);
+    }
+
+
     @Override
     public String toString() {
         return "Car{" +
-                "id=" + id +
-                ", model='" + model + '\'' +
+                "model='" + model + '\'' +
                 ", series='" + series + '\'' +
                 ", horsePower=" + horsePower +
                 '}';
